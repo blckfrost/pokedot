@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/blckfrost/pokedot.git/internal/handlers"
@@ -26,5 +27,6 @@ func main() {
 	})
 	r.Get("/api/pokemon", handlers.GetPokeMons)
 
+	log.Println("server running on :3030")
 	http.ListenAndServe(":3030", r)
 }
