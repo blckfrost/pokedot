@@ -6,7 +6,7 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
-var ctx = context.Background()
+var Ctx = context.Background()
 
 var Rdb *redis.Client
 
@@ -15,5 +15,4 @@ func Init() {
 		Addr: "localhost:6379",
 		DB:   0,
 	})
-
 }

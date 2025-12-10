@@ -25,7 +25,9 @@ func main() {
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Welcome"))
 	})
-	r.Get("/api/pokemon", handlers.GetPokeMons)
+	r.Get("/api/pokemon", handlers.GetPokemons)
+	r.Get("/api/favorite", handlers.GetFavoritePokemons)
+	r.Post("/api/favorite", handlers.AddToFavorites)
 
 	log.Println("server running on :3030")
 	http.ListenAndServe(":3030", r)

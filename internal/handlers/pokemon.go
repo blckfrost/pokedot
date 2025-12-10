@@ -5,8 +5,6 @@ import (
 	"net/http"
 )
 
-// fetch list of pokemon
-
 type PokemonData struct {
 	Results []struct {
 		Name string `json:"name"`
@@ -14,7 +12,7 @@ type PokemonData struct {
 	}
 }
 
-func GetPokeMons(w http.ResponseWriter, r *http.Request) {
+func GetPokemons(w http.ResponseWriter, r *http.Request) {
 	response, err := http.Get("https://pokeapi.co/api/v2/pokemon?limit=151")
 	if err != nil {
 		http.Error(w, "failed to fetch pokemons", 500)
