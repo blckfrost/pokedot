@@ -46,6 +46,31 @@ func AddToFavorites(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func DeleteFavorite(w http.ResponseWriter, r *http.Request) {
+	var body FavoriteRequest
+
+	err := json.NewDecoder(r.Body).Decode(&body)
+	if err != nil {
+		http.Error(w, "invalid body request", http.StatusBadRequest)
+		return
+	}
+
+	if body.Name == "" {
+		http.Error(w, "pokemon name required", http.StatusBadRequest)
+		return
+	}
+
+	err = redis.Rdb.SRem(redis.Ctx, FavoritesKey, body.Name).Err()
+	if err != nil {
+		http.Error(w, "failed to delete favorite ", http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("removed from favorite"))
+
+}
+
 type FavoriteRequest struct {
 	Name string `json:"name"`
 }

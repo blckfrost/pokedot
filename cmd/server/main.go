@@ -18,7 +18,7 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Use(cors.Handler(cors.Options{
 		AllowedOrigins: []string{"http://localhost:4321"},
-		AllowedMethods: []string{"GET", "POST", "OPTIONS"},
+		AllowedMethods: []string{"GET", "POST", "OPTIONS", "DELETE"},
 		AllowedHeaders: []string{"Content-Type"},
 	}))
 
@@ -28,6 +28,7 @@ func main() {
 	r.Get("/api/pokemon", handlers.GetPokemons)
 	r.Get("/api/favorite", handlers.GetFavoritePokemons)
 	r.Post("/api/favorite", handlers.AddToFavorites)
+	r.Delete("/api/favorite", handlers.DeleteFavorite)
 
 	log.Println("server running on :3030")
 	http.ListenAndServe(":3030", r)
