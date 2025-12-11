@@ -1,4 +1,6 @@
 ---
+import Card from "@/components/Card.astro";
+import "@/styles/global.css";
 const res = await fetch("http://localhost:3030/api/pokemon");
 const data = await res.json();
 ---
@@ -9,19 +11,12 @@ const data = await res.json();
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <title>Pokedot</title>
   </head>
   <body>
     <h1>Pokemon List</h1>
-
-    <ul>
-      {
-        data?.Results?.map((p: any) => (
-          <li>
-            {p.name} {p.url}
-          </li>
-        )) ?? "No Pokemon found"
-      }
-    </ul>
+    <div class="grid gap-2 grid-cols-4">
+      {Array.from({ length: 4 }).map(() => <Card />)}
+    </div>
   </body>
 </html>
