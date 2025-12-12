@@ -15,8 +15,11 @@ const data = await res.json();
   </head>
   <body>
     <h1>Pokemon List</h1>
-    <div class="grid gap-2 grid-cols-4">
-      {Array.from({ length: 4 }).map(() => <Card />)}
+
+    <div
+      class="mx-auto mt-6 grid grid-cols-3 gap-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
+    >
+      {data?.Results?.map((pokemon: any) => <Card name={pokemon.name} />)}
     </div>
   </body>
 </html>

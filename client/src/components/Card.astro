@@ -1,55 +1,52 @@
 ---
 import { Image } from "astro:assets";
-// interface Props {
-//   name: string;
-//   types: string[];
-//   abilities: string[];
-//   base_experience: number;
-//   height: number;
-//   weight: number;
-// }
-//
-// const { name, types, abilities, base_experience, height, weight } = Astro.props;
+interface Props {
+  name: string;
+  // types: string[];
+  // abilities: string[];
+  // base_experience: number;
+  // height: number;
+  // weight: number;
+}
+
+const { name } = Astro.props;
 ---
 
-<div class="bg-black text-white p-8 space-y-6 shadow-2xl max-w-xs">
-  <div class="pb-2">
-    <h1 class="text-3xl font-black text-white">Ditto</h1>
-  </div>
-
-  <div class="aspect-auto flex items-center justify-center">
+<div
+  class="bg-black text-white p-4 space-y-4 shadow-xl w-50 rounded-md flex flex-col"
+>
+  <div class="flex items-center justify-center">
     <Image
       src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/132.png"
-      alt="Ditto pokemon"
-      width={400}
-      height={400}
-      loading={"eager"}
+      alt={`${name} pokemon`}
+      width={160}
+      height={160}
+      loading="eager"
       class="object-contain"
     />
   </div>
 
-  <div class="pb-2">
-    <div class="text-xs font-bold tracking-widest mb-2 text-gray-400 uppercase">
-      Type
-    </div>
-    <div class="text-lg font-black uppercase tracking-tight text-white">
-      Fire
-    </div>
-  </div>
+  <h1 class="text-xl font-black text-white text-center">{name}</h1>
 
-  <div class="pb-2">
-    <div class="text-xs font-bold tracking-widest mb-2 text-gray-400 uppercase">
-      Abilities
+  <!-- Details section -->
+  <div class="grid grid-cols-2 gap-2 text-xs font-semibold">
+    <div>
+      <div class="text-gray-500 uppercase text-[10px]">Type</div>
+      <div
+        class="text-sm uppercase font-bold border border-black bg-red-500 rounded-xl text-center"
+      >
+        Fire
+      </div>
     </div>
-    <div class="text-sm font-black uppercase tracking-tight text-white">
-      Burst
-    </div>
-  </div>
 
-  <div class="pb-2">
-    <div class="text-xs font-bold tracking-widest mb-2 text-gray-400 uppercase">
-      Base Experience
+    <div>
+      <div class="text-gray-500 uppercase text-[10px]">Ability</div>
+      <div class="text-sm font-bold uppercase">Burst</div>
     </div>
-    <div class="text-2xl font-black text-white">400</div>
+
+    <div class="col-span-2">
+      <div class="text-gray-500 uppercase text-[10px]">Base EXP</div>
+      <div class="text-sm font-bold">400</div>
+    </div>
   </div>
 </div>

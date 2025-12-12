@@ -13,7 +13,7 @@ type PokemonData struct {
 }
 
 func GetPokemons(w http.ResponseWriter, r *http.Request) {
-	response, err := http.Get("https://pokeapi.co/api/v2/pokemon?limit=151")
+	response, err := http.Get("https://pokeapi.co/api/v2/pokemon?limit=100")
 	if err != nil {
 		http.Error(w, "failed to fetch pokemons", 500)
 		return
