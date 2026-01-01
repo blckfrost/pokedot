@@ -1,6 +1,7 @@
 .PHONY: redis server client dev build clean
 
 server:
+	@go mod tidy
 	@echo "Starting Go backend..."
 	@go run cmd/server/main.go
 
