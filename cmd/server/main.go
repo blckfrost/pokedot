@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/blckfrost/pokedot.git/config"
 	"github.com/blckfrost/pokedot.git/internal/handlers"
 	"github.com/blckfrost/pokedot.git/internal/redis"
 	"github.com/go-chi/chi/v5"
@@ -12,6 +13,7 @@ import (
 )
 
 func main() {
+	config := config.LoadConfig()
 	redis.Init()
 
 	r := chi.NewRouter()
@@ -31,5 +33,5 @@ func main() {
 	r.Delete("/api/favorite", handlers.DeleteFavorite)
 
 	log.Println("server running on :3030")
-	http.ListenAndServe(":3030", r)
+	http.ListenAndServe(":"+config.Port, r)
 }
