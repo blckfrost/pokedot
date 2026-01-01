@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/blckfrost/pokedot.git/config"
+	"github.com/blckfrost/pokedot.git/internal/db"
 	"github.com/blckfrost/pokedot.git/internal/handlers"
 	"github.com/blckfrost/pokedot.git/internal/redis"
 	"github.com/go-chi/chi/v5"
@@ -14,7 +15,11 @@ import (
 
 func main() {
 	config := config.LoadConfig()
+
 	redis.Init()
+	if err := db.Init(config); err != nil {
+		log.Fatal("failed to initialize database", err)
+	}
 
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
@@ -32,6 +37,6 @@ func main() {
 	r.Post("/api/favorite", handlers.AddToFavorites)
 	r.Delete("/api/favorite", handlers.DeleteFavorite)
 
-	log.Println("server running on :3030")
+	log.Println("server running on :" + config.Port)
 	http.ListenAndServe(":"+config.Port, r)
 }

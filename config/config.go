@@ -9,6 +9,7 @@ import (
 
 type Config struct {
 	DBName     string
+	DBHost     string
 	DBPort     string
 	DBUser     string
 	DBPassword string
@@ -22,22 +23,22 @@ func LoadConfig() *Config {
 	}
 
 	config := &Config{
-		DBName:     getEnvOrDefault("DB_NAME", "pokedot_db"),
-		DBPort:     getEnvOrDefault("DB_PORT", "5432"),
-		DBUser:     getEnvOrDefault("DB_USER", "user"),
-		DBPassword: getEnvOrDefault("DB_PASSWORD", "password"),
-		Port:       getEnvOrDefault("PORT ", "3030"),
+		DBName:     getEnv("DB_NAME"),
+		DBHost:     getEnv("DB_HOST"),
+		DBPort:     getEnv("DB_PORT"),
+		DBUser:     getEnv("DB_USER"),
+		DBPassword: getEnv("DB_PASSWORD"),
+		Port:       getEnv("PORT"),
 	}
 
 	return config
 
 }
+func getEnv(key string) string {
+	value := os.Getenv(key)
+	if value == "" {
+		log.Fatalf("Missing required environment variable: %s", key)
 
-// getEnvOrDefault returns the environment variable or the default value
-func getEnvOrDefault(key, defaultValue string) string {
-	if value := os.Getenv(key); value != "" {
-		return value
 	}
-
-	return defaultValue
+	return value
 }

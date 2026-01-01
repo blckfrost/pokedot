@@ -1,4 +1,4 @@
-.PHONY: redis server client dev build clean
+.PHONY: compose server client dev build clean
 
 server:
 	@go mod tidy
@@ -9,13 +9,13 @@ client:
 	@echo "Starting frontend..."
 	@cd client && pnpm install && pnpm dev
 
-redis:
-	@echo "Starting redis container..."
+compose:
+	@echo "Starting redis+psql containers..."
 	@docker compose up -d
 
 dev:
 	@echo "Starting dev environment"
-	@make -j3 redis server client
+	@make -j3 compose server client
 	@go run cmd/server/main.go
 
 
